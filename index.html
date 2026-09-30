@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>GBSBFI</title>
+  <style>
+    body{font-family:system-ui,sans-serif;max-width:760px;margin:0 auto;padding:24px;background:#071421;color:#f5e7b2}
+    .card{background:#0d2638;border:1px solid #b88725;border-radius:18px;padding:20px;margin:14px 0}
+    button{padding:12px 16px;border:0;border-radius:10px;cursor:pointer}
+    code{word-break:break-all}
+  </style>
+</head>
+<body>
+  <h1>GBSBFI</h1>
+  <p>GBSBFORYOU token project — independent V2 interface.</p>
+
+  <div class="card">
+    <button id="connect">Connect Wallet</button>
+    <p id="account">Wallet: not connected</p>
+  </div>
+
+  <div class="card">
+    <h2>Token information</h2>
+    <p>Name: GBSBFI</p>
+    <p>Symbol: GBSBFI</p>
+    <p>Decimals: 18</p>
+    <p>Contract: <code id="contract">NOT DEPLOYED</code></p>
+  </div>
+
+  <div class="card">
+    <h2>Important</h2>
+    <p>This frontend is a development shell. Add the verified deployed contract address and ABI only after testnet deployment and review.</p>
+  </div>
+
+  <script>
+    const connect = document.getElementById("connect");
+    const account = document.getElementById("account");
+
+    connect.onclick = async () => {
+      if (!window.ethereum) {
+        account.textContent = "Wallet: no injected wallet detected";
+        return;
+      }
+      try {
+        const accounts = await window.ethereum.request({
+          method: "eth_requestAccounts"
+        });
+        account.textContent = "Wallet: " + accounts[0];
+      } catch (e) {
+        account.textContent = "Wallet connection cancelled or failed";
+      }
+    };
+  </script>
+</body>
+</html>
